@@ -1,0 +1,223 @@
+{
+  "project_title": "Virtual Rasoi - Interactive Indian Culinary & Nutrient Simulator",
+  "archetype": "ORGANIC & EARTHY / TACTICAL SPICE LAB",
+  "theme": {
+    "mode": "dark",
+    "background_primary": "#120E0C",
+    "background_secondary": "#1E1713",
+    "card_background": "#261E19",
+    "card_border": "#3D3028",
+    "primary_accent": "#D95D39",
+    "secondary_accent": "#E5A93C",
+    "tertiary_accent": "#5B8A62",
+    "highlight_glow": "#F28A2E",
+    "text_primary": "#F7EFE9",
+    "text_secondary": "#C4B2A5",
+    "text_muted": "#8C7A6D"
+  },
+  "typography": {
+    "display_font": "Bricolage Grotesque, Outfit, sans-serif",
+    "heading_font": "Outfit, sans-serif",
+    "body_font": "Plus Jakarta Sans, sans-serif",
+    "mono_font": "JetBrains Mono, monospace",
+    "scale": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight",
+      "h3": "text-xl sm:text-2xl font-semibold",
+      "h4": "text-lg font-medium",
+      "body": "text-base leading-relaxed",
+      "small": "text-xs uppercase tracking-widest font-semibold"
+    }
+  },
+  "color_palette": {
+    "terracotta": "#D95D39",
+    "turmeric_gold": "#E5A93C",
+    "saffron_orange": "#F28A2E",
+    "cardamom_green": "#5B8A62",
+    "chili_red": "#C83E2B",
+    "masala_charcoal": "#120E0C",
+    "spice_bark": "#1E1713",
+    "clay_surface": "#261E19",
+    "brass_accent": "#B8860B",
+    "cream_text": "#F7EFE9",
+    "warm_gray": "#C4B2A5",
+    "deep_border": "rgba(229, 169, 60, 0.15)"
+  },
+  "layout_and_grids": {
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8",
+    "bento_hero": "grid grid-cols-1 lg:grid-cols-12 gap-6 items-start",
+    "pan_builder_span": "lg:col-span-7 space-y-6",
+    "nutrition_dashboard_span": "lg:col-span-5 space-y-6 lg:sticky lg:top-24",
+    "ingredient_drawer_grid": "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3",
+    "nutrient_grid": "grid grid-cols-2 sm:grid-cols-4 gap-4"
+  },
+  "key_features_and_simulation_logic": {
+    "unit_conversions": {
+      "grams": "1g = 1g baseline",
+      "milliliters": "1ml = 1g for liquids like water/milk, 0.92g for oil/ghee",
+      "pieces_count": "Pre-configured piece weights (e.g. 1 Tomato = 90g, 1 Onion = 110g, 1 Green Chili = 5g, 1 Potato = 150g, 1 Garlic Clove = 3g)",
+      "tablespoons": "1 tbsp spices = 6g, 1 tbsp oil/ghee = 14g, 1 tbsp dal = 12g, 1 tbsp ginger-garlic paste = 15g"
+    },
+    "cooking_method_adjustments": {
+      "boiling": {
+        "weight_yield_factor": 1.45,
+        "water_retention": "+40-60% weight from absorbed water in lentils/grains",
+        "oil_uptake_g": 0,
+        "vitamin_c_retention": 0.55,
+        "calcium_iron_retention": 0.95,
+        "calories_multiplier": 1.0
+      },
+      "frying": {
+        "weight_yield_factor": 0.82,
+        "water_loss": "-18% moisture loss",
+        "oil_uptake_g": 12.0,
+        "vitamin_c_retention": 0.70,
+        "calcium_iron_retention": 0.98,
+        "calories_multiplier": 1.0
+      },
+      "deep_frying": {
+        "weight_yield_factor": 0.75,
+        "water_loss": "-25% moisture evaporation",
+        "oil_uptake_g": 25.0,
+        "vitamin_c_retention": 0.45,
+        "calcium_iron_retention": 0.90,
+        "calories_multiplier": 1.0
+      },
+      "sauteing": {
+        "weight_yield_factor": 0.88,
+        "water_loss": "-12% moisture loss",
+        "oil_uptake_g": 7.0,
+        "vitamin_c_retention": 0.80,
+        "calcium_iron_retention": 0.98,
+        "calories_multiplier": 1.0
+      },
+      "roasting": {
+        "weight_yield_factor": 0.78,
+        "water_loss": "-22% dry heat moisture loss",
+        "oil_uptake_g": 3.0,
+        "vitamin_c_retention": 0.65,
+        "calcium_iron_retention": 0.99,
+        "calories_multiplier": 1.0
+      },
+      "pressure_cooking": {
+        "weight_yield_factor": 1.55,
+        "water_retention": "+55% moisture retention & tenderizing",
+        "oil_uptake_g": 0,
+        "vitamin_c_retention": 0.75,
+        "calcium_iron_retention": 0.97,
+        "calories_multiplier": 1.0
+      },
+      "steaming": {
+        "weight_yield_factor": 1.05,
+        "water_retention": "+5% moisture condensed",
+        "oil_uptake_g": 0,
+        "vitamin_c_retention": 0.88,
+        "calcium_iron_retention": 0.99,
+        "calories_multiplier": 1.0
+      },
+      "baking": {
+        "weight_yield_factor": 0.80,
+        "water_loss": "-20% moisture loss",
+        "oil_uptake_g": 4.0,
+        "vitamin_c_retention": 0.60,
+        "calcium_iron_retention": 0.98,
+        "calories_multiplier": 1.0
+      }
+    },
+    "preloaded_recipes": [
+      {
+        "id": "andhra-pappu",
+        "name": "Andhra Tomato Pappu (Toor Dal)",
+        "region": "Andhra Pradesh",
+        "description": "Authentic spicy sour yellow lentils tempered with mustard seeds, cumin, garlic, and red chillies.",
+        "default_cooking_method": "pressure_cooking",
+        "ingredients": [
+          {"name": "Toor Dal (Yellow Pigeon Peas)", "quantity": 100, "unit": "grams"},
+          {"name": "Water", "quantity": 300, "unit": "milliliters"},
+          {"name": "Tomato", "quantity": 2, "unit": "pieces_count"},
+          {"name": "Green Chili", "quantity": 2, "unit": "pieces_count"},
+          {"name": "Tamarind Extract", "quantity": 1, "unit": "tablespoon"},
+          {"name": "Turmeric Powder", "quantity": 0.5, "unit": "tablespoon"},
+          {"name": "Mustard Seeds", "quantity": 0.5, "unit": "tablespoon"},
+          {"name": "Cumin Seeds (Jeera)", "quantity": 0.5, "unit": "tablespoon"},
+          {"name": "Garlic", "quantity": 4, "unit": "pieces_count"},
+          {"name": "Ghee / Oil", "quantity": 1, "unit": "tablespoon"}
+        ]
+      },
+      {
+        "id": "paneer-butter-masala",
+        "name": "Dhaba Style Paneer Butter Masala",
+        "region": "North India",
+        "description": "Rich cottage cheese cubes simmered in spiced tomato cashew sauce with butter and kasuri methi.",
+        "default_cooking_method": "sauteing",
+        "ingredients": [
+          {"name": "Paneer (Cottage Cheese)", "quantity": 200, "unit": "grams"},
+          {"name": "Tomato", "quantity": 3, "unit": "pieces_count"},
+          {"name": "Onion", "quantity": 1, "unit": "pieces_count"},
+          {"name": "Butter", "quantity": 2, "unit": "tablespoons"},
+          {"name": "Heavy Cream", "quantity": 2, "unit": "tablespoons"},
+          {"name": "Cashew Nuts", "quantity": 15, "unit": "grams"},
+          {"name": "Garam Masala", "quantity": 0.5, "unit": "tablespoon"},
+          {"name": "Red Chili Powder", "quantity": 1, "unit": "tablespoon"}
+        ]
+      },
+      {
+        "id": "chana-masala",
+        "name": "Amritsari Chana Masala",
+        "region": "Punjab",
+        "description": "Flavorful chickpeas cooked with tea leaf infusion, dried pomegranate seeds, and aromatic spices.",
+        "default_cooking_method": "pressure_cooking",
+        "ingredients": [
+          {"name": "Chickpeas (Kabuli Chana)", "quantity": 120, "unit": "grams"},
+          {"name": "Water", "quantity": 350, "unit": "milliliters"},
+          {"name": "Onion", "quantity": 2, "unit": "pieces_count"},
+          {"name": "Tomato", "quantity": 2, "unit": "pieces_count"},
+          {"name": "Mustard Oil", "quantity": 1.5, "unit": "tablespoons"},
+          {"name": "Chana Masala Powder", "quantity": 1, "unit": "tablespoon"},
+          {"name": "Ginger", "quantity": 10, "unit": "grams"}
+        ]
+      },
+      {
+        "id": "veg-dum-biryani",
+        "name": "Hyderabadi Veg Dum Biryani",
+        "region": "Telangana",
+        "description": "Fragrant basmati rice layered with spiced marinated vegetables, saffron, fried onions, and mint.",
+        "default_cooking_method": "steaming",
+        "ingredients": [
+          {"name": "Basmati Rice", "quantity": 150, "unit": "grams"},
+          {"name": "Mixed Vegetables (Carrot, Beans, Peas)", "quantity": 150, "unit": "grams"},
+          {"name": "Yogurt / Curd", "quantity": 4, "unit": "tablespoons"},
+          {"name": "Ghee", "quantity": 2, "unit": "tablespoons"},
+          {"name": "Fried Onions (Birista)", "quantity": 30, "unit": "grams"},
+          {"name": "Biryani Spices (Cardamom, Cloves, Bay Leaf)", "quantity": 1, "unit": "tablespoon"}
+        ]
+      }
+    ]
+  },
+  "image_urls": {
+    "hero_spices": "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBjb29raW5nJTIwc3BpY2VzJTIwY3VycnklMjBpbmdyZWRpZW50cyUyMHR1cm1lcmljJTIwY2hpbGl8ZW58MHx8fHwxNzg4OTMwODU5fDA&ixlib=rb-4.1.0&q=85",
+    "spices_flatlay": "https://images.unsplash.com/photo-1716816211590-c15a328a5ff0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDF8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBjb29raW5nJTIwc3BpY2VzJTIwY3VycnklMjBpbmdyZWRpZW50cyUyMHR1cm1lcmljJTIwY2hpbGl8ZW58MHx8fHwxNzg4OTMwODU5fDA&ixlib=rb-4.1.0&q=85",
+    "cooked_dal": "https://images.unsplash.com/photo-1697155406121-85aac6236000?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHszfHxpbmRpYW4lMjBzcGljZXMlMjBmb29kJTIwY29va2luZyUyMGN1cnJ5JTIwcGFwcHUlMjBkYWx8ZW58MHx8fHwxNzg4OTMwODUxfDA&ixlib=rb-4.1.0&q=85",
+    "pappu_bowl": "https://images.unsplash.com/photo-1596560314766-08c0c6890024?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBzcGljZXMlMjBmb29kJTIwY29va2luZyUyMGN1cnJ5JTIwcGFwcHUlMjBkYWx8ZW58MHx8fHwxNzg4OTMwODUxfDA&ixlib=rb-4.1.0&q=85",
+    "spices_spoons": "https://images.unsplash.com/photo-1509359149003-657ef23eaf04?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBzcGljZXMlMjBmb29kJTIwY29va2luZyUyMGN1cnJ5JTIwcGFwcHUlMjBkYWx8ZW58MHx8fHwxNzg4OTMwODUxfDA&ixlib=rb-4.1.0&q=85",
+    "indian_thali": "https://images.unsplash.com/photo-1680993032090-1ef7ea9b51e5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwzfHxpbmRpYW4lMjBmb29kJTIwYmlyeWFuaSUyMHBhbmVlciUyMGN1cnJ5JTIwdGhhbGl8ZW58MHx8fHwxNzg4OTMwODYzfDA&ixlib=rb-4.1.0&q=85",
+    "curry_table": "https://images.unsplash.com/photo-1631515242808-497c3fbd3972?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHxpbmRpYW4lMjBmb29kJTIwYmlyeWFuaSUyMHBhbmVlciUyMGN1cnJ5JTIwdGhhbGl8ZW58MHx8fHwxNzg4OTMwODYzfDA&ixlib=rb-4.1.0&q=85"
+  },
+  "instructions_to_main_agent": [
+    "Build a robust Virtual Indian Kitchen & Nutrition Simulator app with a rich catalog of 40+ authentic Indian ingredients (Lentils/Pulses, Spices, Vegetables, Oils/Dairy, Grains).",
+    "Allow user to search, filter by category, and add ingredients into the active Virtual Cooking Pot/Kadai.",
+    "Implement unit selector for every ingredient: Grams (g), Milliliters (ml), Pieces/Count (e.g. 2 Tomatoes, 4 Garlic cloves), or Tablespoons (tbsp e.g. 1 tbsp Ghee, 0.5 tbsp Turmeric).",
+    "Provide interactive selector for all 8 requested cooking methods: Boiling, Frying, Deep Frying, Sautéing, Roasting, Pressure Cooking, Steaming, and Baking.",
+    "Compute real-time weight changes (evaporation vs water absorption vs oil uptake) and nutrient retention factors (Calories, Protein, Carbs, Fat, Fiber, Sodium, Iron, Calcium).",
+    "Include preloaded recipe cards (Andhra Tomato Pappu, Dhaba Paneer Butter Masala, Amritsari Chana Masala, Hyderabadi Dum Biryani) with one-click load into pot.",
+    "Display real-time nutritional summary dashboard with macro donut charts, micro nutrient progress bars vs RDA %, per-serving scaler, and cooking method impact comparison modal.",
+    "Ensure all interactive buttons, inputs, tabs, and nutrient metrics include explicit data-testid attributes for automated test validation.",
+    "Adhere strictly to the warm spice palette (#120E0C background, #D95D39 terracotta accents, #E5A93C turmeric gold highlights) with glowing semi-transparent glass cards."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": {
+    "do_not_center_app": "Avoid text-align: center on root container. Use left-aligned readable grid flows with asymmetric visual highlights.",
+    "transitions": "Use explicit CSS property transitions (e.g., transition: background-color 0.2s, transform 0.2s). DO NOT use transition: all.",
+    "data_testid": "Add data-testid to every interactive input, button, select, recipe card, and nutrient output cell.",
+    "no_emoji_icons": "Use Lucide or Phosphor React icons instead of raw AI assistant emojis for UI controls."
+  }
+}
