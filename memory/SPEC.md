@@ -15,6 +15,7 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 3. Select boiling, frying, deep frying, sautéing, roasting, pressure cooking, steaming, or baking.
 4. Set servings and run the simulation to see macro totals, micronutrients, weight changes, and absorbed oil.
 5. Filter the ingredient browser to Non-veg; chicken, mutton, fish, prawns, eggs, crab, squid, and salmon are measured in grams.
+6. Filter the ingredient browser to Spices to add iodized table salt; it contributes sodium while adding zero calories and macros.
 
 ## Backend
 Catalog and calculation endpoints are stateless under `/api/catalog`. Nutrient values are curated estimates, not a medical or regulatory database. No authentication or user roles are implemented in this MVP.

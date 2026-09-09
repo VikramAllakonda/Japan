@@ -74,6 +74,7 @@ INGREDIENTS = [
     _ingredient("garam-masala", "Garam Masala", "Spices", (380, 12, 55, 14, 20, 50, 15, 400), "tablespoons", tablespoon_weight_g=6),
     _ingredient("red-chili", "Red Chili Powder", "Spices", (282, 13.5, 50, 14, 35, 286, 7.7, 148), "tablespoons", tablespoon_weight_g=6),
     _ingredient("coriander-powder", "Coriander Powder", "Spices", (298, 13, 55, 17, 42, 35, 16, 709), "tablespoons", tablespoon_weight_g=6),
+    _ingredient("iodized-salt", "Table Salt (Iodized)", "Spices", (0, 0, 0, 0, 0, 38758, 0, 24), "tablespoons", tablespoon_weight_g=18),
     _ingredient("cashew", "Cashew Nuts", "Nuts & Seeds", (553, 18, 30, 44, 3.3, 12, 6.7, 37)),
     _ingredient("cream", "Heavy Cream", "Dairy", (340, 2.1, 2.8, 36, 0, 27, 0, 65), "tablespoons", tablespoon_weight_g=15),
     _ingredient("water", "Water", "Liquids", (0, 0, 0, 0, 0, 0, 0, 0), "milliliters"),
