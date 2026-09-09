@@ -10,10 +10,11 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 - `CalculateResponse`: raw and cooked weight, absorbed oil, totals, per-serving nutrition, ingredient conversions, and cooking note.
 
 ## Key flows
-1. Open the calculator and browse the four preloaded recipe cards.
+1. Open the calculator and browse the ten preloaded recipe cards, including chicken, mutton, fish, prawn, and non-vegetarian biryani recipes.
 2. Load a recipe into the virtual pot; adjust ingredient quantities/units or add catalog ingredients.
 3. Select boiling, frying, deep frying, sautéing, roasting, pressure cooking, steaming, or baking.
 4. Set servings and run the simulation to see macro totals, micronutrients, weight changes, and absorbed oil.
+5. Filter the ingredient browser to Non-veg; chicken, mutton, fish, prawns, eggs, crab, squid, and salmon are measured in grams.
 
 ## Backend
 Catalog and calculation endpoints are stateless under `/api/catalog`. Nutrient values are curated estimates, not a medical or regulatory database. No authentication or user roles are implemented in this MVP.
