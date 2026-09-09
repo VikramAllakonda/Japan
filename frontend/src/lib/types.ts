@@ -82,6 +82,7 @@ export interface CalculateResponse {
   cooked_weight_g: number;
   servings: number;
   oil_uptake_g: number;
+  raw_totals: Nutrition;
   totals: Nutrition;
   per_serving: Nutrition;
   ingredients: CalculatedIngredient[];

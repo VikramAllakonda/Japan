@@ -88,6 +88,7 @@ class CalculateResponse(BaseModel):
     cooked_weight_g: float
     servings: int
     oil_uptake_g: float
+    raw_totals: Nutrition
     totals: Nutrition
     per_serving: Nutrition
     ingredients: list[CalculatedIngredient]

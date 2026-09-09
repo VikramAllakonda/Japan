@@ -320,14 +320,14 @@ METHODS: dict[CookingMethod, CookingMethodInfo] = {
 }
 
 RETENTION = {
-    "boiling": (0.95, 0.90),
-    "frying": (0.98, 0.70),
-    "deep_frying": (0.90, 0.45),
-    "sauteing": (0.98, 0.80),
-    "roasting": (0.99, 0.65),
-    "pressure_cooking": (0.97, 0.75),
-    "steaming": (0.99, 0.88),
-    "baking": (0.98, 0.60),
+    "boiling": {"calories": 1.0, "protein": 0.98, "carbs": 0.97, "fat": 0.99, "fiber": 0.90, "sodium": 0.95, "iron": 0.95, "calcium": 0.90},
+    "frying": {"calories": 1.0, "protein": 0.99, "carbs": 0.98, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.98, "calcium": 0.70},
+    "deep_frying": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.90, "sodium": 0.98, "iron": 0.90, "calcium": 0.45},
+    "sauteing": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.96, "sodium": 0.98, "iron": 0.98, "calcium": 0.80},
+    "roasting": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.99, "calcium": 0.65},
+    "pressure_cooking": {"calories": 1.0, "protein": 0.99, "carbs": 1.0, "fat": 0.99, "fiber": 0.95, "sodium": 0.97, "iron": 0.97, "calcium": 0.75},
+    "steaming": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.98, "sodium": 0.99, "iron": 0.99, "calcium": 0.88},
+    "baking": {"calories": 1.0, "protein": 0.98, "carbs": 0.96, "fat": 1.0, "fiber": 0.94, "sodium": 0.98, "iron": 0.98, "calcium": 0.60},
 }
 
 
@@ -386,11 +386,11 @@ async def calculate_nutrition(payload: CalculateRequest) -> CalculateResponse:
             )
         )
 
+    raw_totals = Nutrition(**totals.model_dump())
     method = METHODS[payload.cooking_method]
-    iron_retention, calcium_retention = RETENTION[payload.cooking_method]
-    totals.iron *= iron_retention
-    totals.calcium *= calcium_retention
-    totals.sodium *= 0.98
+    retention = RETENTION[payload.cooking_method]
+    for field in Nutrition.model_fields:
+        setattr(totals, field, getattr(totals, field) * retention[field])
     totals.fat += method.oil_uptake_g
     totals.calories += method.oil_uptake_g * 9
     cooked_weight = raw_weight * method.yield_factor + method.oil_uptake_g
@@ -402,6 +402,7 @@ async def calculate_nutrition(payload: CalculateRequest) -> CalculateResponse:
         cooked_weight_g=round(cooked_weight, 1),
         servings=payload.servings,
         oil_uptake_g=method.oil_uptake_g,
+        raw_totals=_rounded(raw_totals),
         totals=_rounded(totals),
         per_serving=_rounded(per_serving),
         ingredients=calculated_ingredients,
