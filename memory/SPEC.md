@@ -20,9 +20,12 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 8. Tune the selected method's oil absorption and nutrient retention for the current simulation, then compare the current pot across boiling, frying, and pressure cooking.
 9. Simulate any pot to see cooking-adjusted vitamin B12 alongside sodium, iron, and calcium; animal and dairy foods contribute curated B12 values.
 10. Choose the number of servings before simulation; the app keeps total-pot values and shows a dedicated card where all nine nutrients are divided evenly per serving.
-11. Filter the recipe shelf by All, Breakfast, Main Dish, Vegetarian, or Non-Vegetarian; load one of 24 regional breakfast templates or add the matching prepared breakfast food directly from the ingredient browser.
+11. Filter the recipe shelf by All, Breakfast, Main Dish, Vegetarian, or Non-Vegetarian; load one of 25 regional breakfast templates or add the matching prepared breakfast food directly from the ingredient browser.
 12. Add soya chunks from Pulses or cold-pressed groundnut/coconut oil from Oils & Fats to any custom pot.
 13. One plain dosa is treated as approximately 100 g when selected by piece/count.
+14. Smaller breakfast piece conventions are idli 40 g, poori 20 g, medu vada 50 g, appam 50 g, and aloo paratha 100 g; eggs use count/pieces at approximately 50 g each.
+15. The Non-veg ingredient filter is always visible beside All and the category chips wrap on desktop; medium roti and medium jonna roti use piece counts of approximately 40 g and 60 g.
+16. The recipe shelf shows four matching cards initially; See more reveals every matching recipe and Show less collapses the shelf again.
 
 ## Backend
 Catalog and calculation endpoints are stateless under `/api/catalog`. Nutrient values are curated estimates, not a medical or regulatory database. No authentication or user roles are implemented in this MVP.

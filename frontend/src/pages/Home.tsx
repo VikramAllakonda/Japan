@@ -65,7 +65,7 @@ const METHOD_COLORS: Record<CookingMethodKey, string> = {
 };
 
 const UNIT_OPTIONS: Unit[] = ["grams", "milliliters", "pieces_count", "tablespoons"];
-const CATEGORIES = ["All", "Pulses", "Grains", "Vegetables", "Spices", "Dairy", "Oils & Fats", "Prepared Breakfast", "Non-veg"];
+const CATEGORIES = ["All", "Non-veg", "Prepared Breakfast", "Pulses", "Grains", "Vegetables", "Spices", "Dairy", "Oils & Fats"];
 const RECIPE_FILTERS = ["All", "Breakfast", "Main Dish", "Vegetarian", "Non-Vegetarian"] as const;
 type RecipeFilter = (typeof RECIPE_FILTERS)[number];
 const NUTRITION_COMPARISON: Array<{ key: keyof Nutrition; label: string; suffix: string }> = [
@@ -173,6 +173,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [recipeFilter, setRecipeFilter] = useState<RecipeFilter>("All");
+  const [showAllRecipes, setShowAllRecipes] = useState(false);
   const [potItems, setPotItems] = useState<PotItem[]>([]);
   const [cookingMethod, setCookingMethod] = useState<CookingMethodKey>("pressure_cooking");
   const [servings, setServings] = useState(2);
@@ -209,6 +210,7 @@ export default function Home() {
     if (recipeFilter === "Breakfast" || recipeFilter === "Main Dish") return recipe.meal_type === recipeFilter;
     return recipe.dietary_type === recipeFilter;
   });
+  const displayedRecipes = showAllRecipes ? visibleRecipes : visibleRecipes.slice(0, 4);
 
   const calculateMutation = useMutation({
     mutationFn: (payload: CalculateRequest) => apiPost<CalculateResponse>("/catalog/calculate", payload),
@@ -254,6 +256,7 @@ export default function Home() {
   }
 
   function unitsForIngredient(ingredient: IngredientCatalogItem): Unit[] {
+    if (ingredient.id === "egg") return ["pieces_count"];
     return ingredient.category === "Non-veg" ? ["grams"] : UNIT_OPTIONS;
   }
 
@@ -324,8 +327,9 @@ export default function Home() {
 
         <section data-testid="recipe-shelf" className="mb-10">
           <div className="mb-4 flex items-end justify-between gap-4"><div><p data-testid="recipe-shelf-eyebrow" className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#d95d39]">Start with a classic</p><h2 data-testid="recipe-shelf-title" className="mt-1 font-heading text-3xl font-semibold tracking-tight text-[#f7efe9]">Recipe shelf</h2></div><p data-testid="recipe-shelf-hint" className="hidden text-xs text-[#8c7a6d] sm:block">Load a base, then make it yours <ChevronRight className="ml-1 inline" size={14} /></p></div>
-          <div data-testid="recipe-filters" className="mb-5 flex flex-wrap gap-2">{RECIPE_FILTERS.map((filter) => <Button key={filter} data-testid={`recipe-filter-${filter.toLowerCase().replaceAll(" ", "-")}-button`} onClick={() => setRecipeFilter(filter)} variant={recipeFilter === filter ? "default" : "outline"} size="sm" className={recipeFilter === filter ? "h-8 rounded-full bg-[#d95d39] px-3 text-xs text-white hover:bg-[#bf4d2d]" : "h-8 rounded-full border-[#4d392b] bg-transparent px-3 text-xs text-[#bba79a] hover:bg-[#2a1d16] hover:text-white"}>{filter}</Button>)}</div>
-          <div data-testid="recipe-results" className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{visibleRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} onLoad={loadRecipe} />)}</div>
+          <div data-testid="recipe-filters" className="mb-5 flex flex-wrap gap-2">{RECIPE_FILTERS.map((filter) => <Button key={filter} data-testid={`recipe-filter-${filter.toLowerCase().replaceAll(" ", "-")}-button`} onClick={() => { setRecipeFilter(filter); setShowAllRecipes(false); }} variant={recipeFilter === filter ? "default" : "outline"} size="sm" className={recipeFilter === filter ? "h-8 rounded-full bg-[#d95d39] px-3 text-xs text-white hover:bg-[#bf4d2d]" : "h-8 rounded-full border-[#4d392b] bg-transparent px-3 text-xs text-[#bba79a] hover:bg-[#2a1d16] hover:text-white"}>{filter}</Button>)}</div>
+          <div data-testid="recipe-results" className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{displayedRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} onLoad={loadRecipe} />)}</div>
+          {visibleRecipes.length > 4 && <div data-testid="recipe-expansion-controls" className="mt-5 flex justify-center"><Button data-testid="recipe-see-more-button" onClick={() => setShowAllRecipes((current) => !current)} variant="outline" className="min-w-36 border-[#6a492d] bg-[#211813] text-[#f7efe9] hover:bg-[#d95d39]/10 hover:text-white">{showAllRecipes ? "Show less" : `See more (${visibleRecipes.length - 4})`}</Button></div>}
         </section>
 
         <section data-testid="calculator-workspace" className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(360px,.7fr)]">
@@ -334,7 +338,7 @@ export default function Home() {
               <CardHeader className="border-b border-[#3d3028]/80 px-5 pb-4 pt-5 sm:px-6"><div className="flex items-start justify-between gap-4"><div><p data-testid="ingredient-browser-eyebrow" className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#e5a93c]">Ingredient browser</p><CardTitle data-testid="ingredient-browser-title" className="mt-1 font-heading text-2xl text-[#f7efe9]">Build your pot</CardTitle><p data-testid="ingredient-browser-description" className="mt-1 text-xs leading-5 text-[#9e8b7b]">Search, choose a unit, and layer in your own proportions.</p></div><div data-testid="ingredient-browser-icon" className="rounded-xl bg-[#e5a93c]/10 p-3 text-[#e5a93c]"><Search size={19} /></div></div></CardHeader>
               <CardContent className="p-5 sm:p-6">
                 <div className="relative"><Search data-testid="ingredient-search-icon" className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8c7a6d]" size={16} /><Input data-testid="ingredient-search-input" value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search dal, tomato, spice..." className="h-11 border-[#4d392b] bg-[#18120f] pl-10 text-[#f7efe9] placeholder:text-[#806f63] focus-visible:ring-[#d95d39]" /></div>
-                <div data-testid="ingredient-category-filters" className="mt-4 flex gap-2 overflow-x-auto pb-1">{CATEGORIES.map((item) => <Button key={item} data-testid={`category-${item.toLowerCase().replaceAll(" ", "-")}-filter-button`} onClick={() => setCategory(item)} variant={category === item ? "default" : "outline"} size="sm" className={category === item ? "h-8 rounded-full bg-[#d95d39] px-3 text-xs text-white hover:bg-[#bf4d2d]" : "h-8 rounded-full border-[#4d392b] bg-transparent px-3 text-xs text-[#bba79a] hover:bg-[#2a1d16] hover:text-white"}>{item}</Button>)}</div>
+                <div data-testid="ingredient-category-filters" className="mt-4 flex flex-wrap gap-2 pb-1">{CATEGORIES.map((item) => <Button key={item} data-testid={`category-${item.toLowerCase().replaceAll(" ", "-")}-filter-button`} onClick={() => setCategory(item)} variant={category === item ? "default" : "outline"} size="sm" className={category === item ? "h-8 rounded-full bg-[#d95d39] px-3 text-xs text-white hover:bg-[#bf4d2d]" : "h-8 rounded-full border-[#4d392b] bg-transparent px-3 text-xs text-[#bba79a] hover:bg-[#2a1d16] hover:text-white"}>{item}</Button>)}</div>
                 <div data-testid="ingredient-results" className="mt-5 grid max-h-[310px] grid-cols-2 gap-3 overflow-y-auto pr-1 sm:grid-cols-3">{visibleIngredients.map((ingredient) => <button data-testid={`ingredient-add-${ingredient.id}-button`} key={ingredient.id} type="button" onClick={() => addIngredient(ingredient)} className="group rounded-2xl border border-[#3d3028] bg-[#211813]/75 p-3 text-left transition-[border-color,background-color,transform] duration-200 hover:-translate-y-0.5 hover:border-[#d95d39]/70 hover:bg-[#2a1b14]"><div className="mb-4 flex items-start justify-between"><span className="rounded-xl bg-[#3d2b20] p-2 text-[#e5a93c]"><Leaf size={15} /></span><Plus className="text-[#806f63] transition-colors duration-200 group-hover:text-[#f28a2e]" size={17} /></div><p data-testid={`ingredient-name-${ingredient.id}`} className="line-clamp-1 text-sm font-semibold text-[#f7efe9]">{ingredient.name}</p><p data-testid={`ingredient-category-${ingredient.id}`} className="mt-1 text-[10px] uppercase tracking-[0.12em] text-[#8c7a6d]">{ingredient.category}</p></button>)}</div>
                 {visibleIngredients.length === 0 && <p data-testid="ingredient-empty-state" className="py-10 text-center text-sm text-[#9e8b7b]">No ingredients match that search.</p>}
               </CardContent>

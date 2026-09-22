@@ -1,0 +1,69 @@
+{
+  "iteration": 1,
+  "app": "Virtual Rasoi (curry-calc)",
+  "mode": "generate",
+  "summary": "All 6 acceptance-matrix criteria verified across 6 browser checks + 3 backend test files (one criterion, nutrition simulation, gets both lanes; roti conversion gets both lanes too). All checks passed.",
+  "passed": 8,
+  "failed": 0,
+  "bugs": [],
+  "action_items": [],
+  "retest_needed": false,
+  "checks": [
+    {
+      "criterion": "Non-veg ingredient section is visible on desktop without horizontal scrolling",
+      "name": "nonveg-chip-visible-desktop",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "At 1440x900 viewport, category-non-veg-filter-button and category-all-filter-button both visible with bounding box within viewport width; clicking Non-veg revealed chicken, mutton, rohu-fish, prawns, egg, crab, squid ingredient cards."
+    },
+    {
+      "criterion": "Recipe shelf is compact by default",
+      "name": "recipe-shelf-compact-default",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "recipe-results contained exactly 4 [data-testid^=recipe-card-] elements on initial load with All filter; recipe-see-more-button visible."
+    },
+    {
+      "criterion": "See more and Show less work",
+      "name": "recipe-see-more-show-less",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Clicking See more expanded card count from 4 to 35 (matches backend catalog total) and button text changed to Show less; clicking again collapsed back to 4 and label reverted to See more."
+    },
+    {
+      "criterion": "Recipe filter resets expansion",
+      "name": "recipe-filter-resets-expansion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "After expanding to 35 cards, switching to Breakfast, Main Dish, Vegetarian, and Non-Vegetarian filters each collapsed the shelf to <=4 cards with See more button reappearing."
+    },
+    {
+      "criterion": "Medium roti ingredients are count based",
+      "name": "roti-piece-count-conversion",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Added Medium Roti and Medium Jonna Roti from Grains category; both pot rows defaulted unit select to pieces_count; simulating 1 piece each produced raw-weight-value = 100 g (40g + 60g)."
+    },
+    {
+      "criterion": "Medium roti ingredients are count based (piece-weight API contract)",
+      "name": "test_tscheck_roti_piece_weights.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "GET /catalog/ingredients: medium-roti default_unit=pieces_count piece_weight_g=40, medium-jonna-roti default_unit=pieces_count piece_weight_g=60. POST /catalog/calculate with 3x medium-roti pieces -> raw_weight_g=120.0 (approx 40g*3); 2x medium-jonna-roti pieces -> raw_weight_g=120.0 (approx 60g*2). Status 200 both."
+    },
+    {
+      "criterion": "Nutrition simulation still completes",
+      "name": "nutrition-simulation-completes",
+      "lane": "browser",
+      "status": "passed",
+      "evidence": "Added Medium Roti, incremented servings, clicked Simulate my pot; nutrition-total-calories and per-serving-calories-value populated with non-zero numeric values. No requestfailed events, no response>=400, and no browser console errors captured during the flow."
+    },
+    {
+      "criterion": "Nutrition simulation still completes (API contract)",
+      "name": "test_tscheck_nutrition_simulation.py",
+      "lane": "backend",
+      "status": "passed",
+      "evidence": "POST /catalog/calculate with medium-roti x2 pieces, servings=2 -> 200 OK; totals and per_serving objects contain all 9 nutrient keys (calories, protein, carbs, fat, fiber, sodium, iron, calcium, b12); per_serving.calories ≈ totals.calories / 2 within 1% tolerance."
+    }
+  ]
+}
