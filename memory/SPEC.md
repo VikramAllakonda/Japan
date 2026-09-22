@@ -1,7 +1,7 @@
-# Virtual Rasoi living spec
+# Indian Nutritional Lab living spec
 
 ## Purpose
-Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load a preloaded Indian recipe or search a catalog of ingredients, choose a measurement unit and quantity, choose a cooking method, and simulate the resulting nutrition and cooked weight.
+Indian Nutritional Lab is the primary product name, with Virtual Rasoi as its subtitle. It is a dark, warm Indian kitchen nutrition simulator where users load recipes or ingredients, choose quantities and cooking methods, and simulate nutrition and cooked weight.
 
 ## Data model
 - `IngredientCatalogItem`: ingredient identity, category, unit conversion hints, and nutrition per 100 g for calories, protein, carbs, fat, fiber, sodium, iron, calcium, and vitamin B12 in micrograms.

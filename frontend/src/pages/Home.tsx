@@ -290,8 +290,8 @@ export default function Home() {
           <div className="flex items-center gap-3">
             <div data-testid="brand-mark" className="flex h-10 w-10 items-center justify-center rounded-2xl bg-[#d95d39] text-[#fff5e8] shadow-[0_0_26px_rgba(217,93,57,0.28)]"><ChefHat size={21} /></div>
             <div>
-              <p data-testid="brand-title" className="font-heading text-lg font-bold tracking-tight">Virtual Rasoi</p>
-              <p data-testid="brand-subtitle" className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#a99485]">Indian nutrition lab</p>
+              <p data-testid="brand-title" className="font-heading text-lg font-bold tracking-tight">INDIAN NUTRITIONAL LAB</p>
+              <p data-testid="brand-subtitle" className="text-[9px] font-semibold uppercase tracking-[0.24em] text-[#a99485]">Virtual Rasoi</p>
             </div>
           </div>
           <div className="hidden items-center gap-3 sm:flex">
@@ -376,7 +376,7 @@ export default function Home() {
           </aside>
         </section>
       </main>
-      <footer data-testid="app-footer" className="relative z-10 mx-auto flex max-w-7xl items-center justify-between border-t border-[#3d3028]/70 px-4 py-6 text-[10px] uppercase tracking-[0.15em] text-[#725f52] sm:px-6 lg:px-8"><span data-testid="footer-brand">Virtual Rasoi / 2026</span><span data-testid="footer-note">Made for curious cooks</span></footer>
+      <footer data-testid="app-footer" className="relative z-10 mx-auto flex max-w-7xl items-center justify-between border-t border-[#3d3028]/70 px-4 py-6 text-[10px] uppercase tracking-[0.15em] text-[#725f52] sm:px-6 lg:px-8"><span data-testid="footer-brand">Indian Nutritional Lab / Virtual Rasoi / 2026</span><span data-testid="footer-note">Made for curious cooks</span></footer>
     </div>
   );
 }
