@@ -19,6 +19,7 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 7. Filter the ingredient browser to Vegetables to browse a broad Indian catalog of regional gourds, greens, roots, beans, brassicas, fruits used as vegetables, and seasonal produce with English/regional names.
 8. Tune the selected method's oil absorption and nutrient retention for the current simulation, then compare the current pot across boiling, frying, and pressure cooking.
 9. Simulate any pot to see cooking-adjusted vitamin B12 alongside sodium, iron, and calcium; animal and dairy foods contribute curated B12 values.
+10. Choose the number of servings before simulation; the app keeps total-pot values and shows a dedicated card where all nine nutrients are divided evenly per serving.
 
 ## Backend
 Catalog and calculation endpoints are stateless under `/api/catalog`. Nutrient values are curated estimates, not a medical or regulatory database. No authentication or user roles are implemented in this MVP.
