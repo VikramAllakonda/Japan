@@ -49,6 +49,8 @@ class Recipe(BaseModel):
     name: str
     region: str
     description: str
+    meal_type: Literal["Breakfast", "Main Dish"] = "Main Dish"
+    dietary_type: Literal["Vegetarian", "Non-Vegetarian"] = "Vegetarian"
     default_cooking_method: CookingMethod
     ingredients: list[RecipeIngredient]
 

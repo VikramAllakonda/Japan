@@ -5,7 +5,7 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 
 ## Data model
 - `IngredientCatalogItem`: ingredient identity, category, unit conversion hints, and nutrition per 100 g for calories, protein, carbs, fat, fiber, sodium, iron, calcium, and vitamin B12 in micrograms.
-- `Recipe`: region, description, default cooking method, and ingredient quantity/unit entries.
+- `Recipe`: region, description, breakfast/main-dish meal type, vegetarian/non-vegetarian dietary type, default cooking method, and ingredient quantity/unit entries.
 - `CalculateRequest`: ingredient entries, cooking method, servings, optional oil-absorption override, and optional nutrient-retention multiplier.
 - `CalculateResponse`: raw and cooked weight, absorbed oil, raw totals, cooking-adjusted totals, per-serving nutrition, ingredient conversions, and cooking note.
 
@@ -20,6 +20,9 @@ Virtual Rasoi is a dark, warm Indian kitchen nutrition simulator. Users can load
 8. Tune the selected method's oil absorption and nutrient retention for the current simulation, then compare the current pot across boiling, frying, and pressure cooking.
 9. Simulate any pot to see cooking-adjusted vitamin B12 alongside sodium, iron, and calcium; animal and dairy foods contribute curated B12 values.
 10. Choose the number of servings before simulation; the app keeps total-pot values and shows a dedicated card where all nine nutrients are divided evenly per serving.
+11. Filter the recipe shelf by All, Breakfast, Main Dish, Vegetarian, or Non-Vegetarian; load one of 24 regional breakfast templates or add the matching prepared breakfast food directly from the ingredient browser.
+12. Add soya chunks from Pulses or cold-pressed groundnut/coconut oil from Oils & Fats to any custom pot.
+13. One plain dosa is treated as approximately 100 g when selected by piece/count.
 
 ## Backend
 Catalog and calculation endpoints are stateless under `/api/catalog`. Nutrient values are curated estimates, not a medical or regulatory database. No authentication or user roles are implemented in this MVP.

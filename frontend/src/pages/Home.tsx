@@ -65,7 +65,9 @@ const METHOD_COLORS: Record<CookingMethodKey, string> = {
 };
 
 const UNIT_OPTIONS: Unit[] = ["grams", "milliliters", "pieces_count", "tablespoons"];
-const CATEGORIES = ["All", "Pulses", "Grains", "Vegetables", "Spices", "Dairy", "Oils & Fats", "Non-veg"];
+const CATEGORIES = ["All", "Pulses", "Grains", "Vegetables", "Spices", "Dairy", "Oils & Fats", "Prepared Breakfast", "Non-veg"];
+const RECIPE_FILTERS = ["All", "Breakfast", "Main Dish", "Vegetarian", "Non-Vegetarian"] as const;
+type RecipeFilter = (typeof RECIPE_FILTERS)[number];
 const NUTRITION_COMPARISON: Array<{ key: keyof Nutrition; label: string; suffix: string }> = [
   { key: "calories", label: "Calories", suffix: "kcal" },
   { key: "protein", label: "Protein", suffix: "g" },
@@ -153,7 +155,7 @@ function RecipeCard({ recipe, onLoad }: { recipe: Recipe; onLoad: (recipe: Recip
       <CardContent className="p-4">
         <div className="mb-4 flex items-start justify-between gap-3">
           <div>
-            <Badge data-testid={`recipe-region-${recipe.id}`} variant="outline" className="border-[#6e4e34] text-[#e5a93c]">{recipe.region}</Badge>
+            <div className="flex flex-wrap gap-2"><Badge data-testid={`recipe-region-${recipe.id}`} variant="outline" className="border-[#6e4e34] text-[#e5a93c]">{recipe.region}</Badge><Badge data-testid={`recipe-meal-type-${recipe.id}`} variant="outline" className="border-[#4b5d43] text-[#9dcc9f]">{recipe.meal_type}</Badge></div>
             <h3 data-testid={`recipe-name-${recipe.id}`} className="mt-3 font-heading text-lg font-semibold leading-tight text-[#f7efe9]">{recipe.name}</h3>
           </div>
           <div className="rounded-xl bg-[#d95d39]/10 p-2 text-[#f28a2e] transition-transform duration-200 group-hover:rotate-6"><Utensils size={17} /></div>
@@ -170,6 +172,7 @@ function RecipeCard({ recipe, onLoad }: { recipe: Recipe; onLoad: (recipe: Recip
 export default function Home() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+  const [recipeFilter, setRecipeFilter] = useState<RecipeFilter>("All");
   const [potItems, setPotItems] = useState<PotItem[]>([]);
   const [cookingMethod, setCookingMethod] = useState<CookingMethodKey>("pressure_cooking");
   const [servings, setServings] = useState(2);
@@ -200,6 +203,11 @@ export default function Home() {
     const matchesSearch = ingredient.name.toLowerCase().includes(search.toLowerCase());
     const matchesCategory = category === "All" || ingredient.category === category;
     return matchesSearch && matchesCategory;
+  });
+  const visibleRecipes = recipes.filter((recipe) => {
+    if (recipeFilter === "All") return true;
+    if (recipeFilter === "Breakfast" || recipeFilter === "Main Dish") return recipe.meal_type === recipeFilter;
+    return recipe.dietary_type === recipeFilter;
   });
 
   const calculateMutation = useMutation({
@@ -316,7 +324,8 @@ export default function Home() {
 
         <section data-testid="recipe-shelf" className="mb-10">
           <div className="mb-4 flex items-end justify-between gap-4"><div><p data-testid="recipe-shelf-eyebrow" className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#d95d39]">Start with a classic</p><h2 data-testid="recipe-shelf-title" className="mt-1 font-heading text-3xl font-semibold tracking-tight text-[#f7efe9]">Recipe shelf</h2></div><p data-testid="recipe-shelf-hint" className="hidden text-xs text-[#8c7a6d] sm:block">Load a base, then make it yours <ChevronRight className="ml-1 inline" size={14} /></p></div>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} onLoad={loadRecipe} />)}</div>
+          <div data-testid="recipe-filters" className="mb-5 flex flex-wrap gap-2">{RECIPE_FILTERS.map((filter) => <Button key={filter} data-testid={`recipe-filter-${filter.toLowerCase().replaceAll(" ", "-")}-button`} onClick={() => setRecipeFilter(filter)} variant={recipeFilter === filter ? "default" : "outline"} size="sm" className={recipeFilter === filter ? "h-8 rounded-full bg-[#d95d39] px-3 text-xs text-white hover:bg-[#bf4d2d]" : "h-8 rounded-full border-[#4d392b] bg-transparent px-3 text-xs text-[#bba79a] hover:bg-[#2a1d16] hover:text-white"}>{filter}</Button>)}</div>
+          <div data-testid="recipe-results" className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">{visibleRecipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} onLoad={loadRecipe} />)}</div>
         </section>
 
         <section data-testid="calculator-workspace" className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(360px,.7fr)]">

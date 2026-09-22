@@ -43,6 +43,8 @@ export interface Recipe {
   name: string;
   region: string;
   description: string;
+  meal_type: "Breakfast" | "Main Dish";
+  dietary_type: "Vegetarian" | "Non-Vegetarian";
   default_cooking_method: CookingMethodKey;
   ingredients: RecipeIngredient[];
 }
