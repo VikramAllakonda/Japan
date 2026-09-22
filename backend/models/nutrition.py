@@ -25,6 +25,7 @@ class Nutrition(BaseModel):
     sodium: float = 0
     iron: float = 0
     calcium: float = 0
+    b12: float = 0
 
 
 class IngredientCatalogItem(BaseModel):
@@ -71,6 +72,8 @@ class CalculateRequest(BaseModel):
     ingredients: list[CalculateIngredientInput] = Field(min_length=1)
     cooking_method: CookingMethod
     servings: int = Field(default=2, ge=1, le=24)
+    oil_absorption_g: float | None = Field(default=None, ge=0, le=100)
+    nutrient_retention_multiplier: float = Field(default=1, ge=0.5, le=1.1)
 
 
 class CalculatedIngredient(BaseModel):

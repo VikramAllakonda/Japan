@@ -23,6 +23,7 @@ def _ingredient(
     default_unit: Unit = "grams",
     piece_weight_g: float = 0,
     tablespoon_weight_g: float = 6,
+    b12: float = 0,
 ) -> IngredientCatalogItem:
     return IngredientCatalogItem(
         id=ingredient_id,
@@ -40,6 +41,7 @@ def _ingredient(
             sodium=nutrition[5],
             iron=nutrition[6],
             calcium=nutrition[7],
+            b12=b12,
         ),
     )
 
@@ -52,9 +54,9 @@ INGREDIENTS = [
     _ingredient("basmati-rice", "Basmati Rice", "Grains", (365, 7.1, 80, 0.7, 1.3, 5, 1.1, 28)),
     _ingredient("atta", "Whole Wheat Atta", "Grains", (340, 13, 72, 2.5, 10.7, 5, 3.9, 34)),
     _ingredient("poha", "Poha", "Grains", (350, 6.6, 77, 1, 2.8, 5, 20, 20)),
-    _ingredient("paneer", "Paneer", "Dairy", (265, 18.3, 6.1, 20.8, 0, 22, 2.2, 208)),
-    _ingredient("yogurt", "Yogurt / Curd", "Dairy", (61, 3.5, 4.7, 3.3, 0, 46, 0.1, 121)),
-    _ingredient("butter", "Butter", "Oils & Fats", (717, 0.9, 0.1, 81, 0, 643, 0, 24), tablespoon_weight_g=14),
+    _ingredient("paneer", "Paneer", "Dairy", (265, 18.3, 6.1, 20.8, 0, 22, 2.2, 208), b12=0.8),
+    _ingredient("yogurt", "Yogurt / Curd", "Dairy", (61, 3.5, 4.7, 3.3, 0, 46, 0.1, 121), b12=0.4),
+    _ingredient("butter", "Butter", "Oils & Fats", (717, 0.9, 0.1, 81, 0, 643, 0, 24), tablespoon_weight_g=14, b12=0.2),
     _ingredient("ghee", "Ghee", "Oils & Fats", (900, 0, 0, 100, 0, 0, 0, 0), tablespoon_weight_g=14),
     _ingredient("mustard-oil", "Mustard Oil", "Oils & Fats", (884, 0, 0, 100, 0, 0, 0, 0), tablespoon_weight_g=14),
     _ingredient("tomato", "Tomato", "Vegetables", (18, 0.9, 3.9, 0.2, 1.2, 5, 0.3, 10), "pieces_count", 90),
@@ -120,16 +122,16 @@ INGREDIENTS = [
     _ingredient("coriander-powder", "Coriander Powder", "Spices", (298, 13, 55, 17, 42, 35, 16, 709), "tablespoons", tablespoon_weight_g=6),
     _ingredient("iodized-salt", "Table Salt (Iodized)", "Spices", (0, 0, 0, 0, 0, 38758, 0, 24), "tablespoons", tablespoon_weight_g=18),
     _ingredient("cashew", "Cashew Nuts", "Nuts & Seeds", (553, 18, 30, 44, 3.3, 12, 6.7, 37)),
-    _ingredient("cream", "Heavy Cream", "Dairy", (340, 2.1, 2.8, 36, 0, 27, 0, 65), "tablespoons", tablespoon_weight_g=15),
+    _ingredient("cream", "Heavy Cream", "Dairy", (340, 2.1, 2.8, 36, 0, 27, 0, 65), "tablespoons", tablespoon_weight_g=15, b12=0.2),
     _ingredient("water", "Water", "Liquids", (0, 0, 0, 0, 0, 0, 0, 0), "milliliters"),
-    _ingredient("chicken", "Chicken", "Non-veg", (239, 27.3, 0, 13.6, 0, 82, 1.3, 15)),
-    _ingredient("mutton", "Mutton (Goat)", "Non-veg", (294, 25, 0, 21, 0, 72, 2.1, 17)),
-    _ingredient("rohu-fish", "Rohu Fish", "Non-veg", (97, 20.5, 0, 1.5, 0, 60, 1, 60)),
-    _ingredient("salmon", "Salmon", "Non-veg", (208, 20.4, 0, 13.4, 0, 59, 0.5, 9)),
-    _ingredient("prawns", "Prawns / Shrimp", "Non-veg", (99, 24, 0.2, 0.3, 0, 111, 0.5, 70)),
-    _ingredient("egg", "Egg", "Non-veg", (143, 12.6, 0.7, 9.5, 0, 142, 1.8, 56)),
-    _ingredient("crab", "Crab", "Non-veg", (97, 19, 0, 1.5, 0, 107, 0.8, 59)),
-    _ingredient("squid", "Squid", "Non-veg", (92, 15.6, 3.1, 1.4, 0, 44, 0.7, 32)),
+    _ingredient("chicken", "Chicken", "Non-veg", (239, 27.3, 0, 13.6, 0, 82, 1.3, 15), b12=0.3),
+    _ingredient("mutton", "Mutton (Goat)", "Non-veg", (294, 25, 0, 21, 0, 72, 2.1, 17), b12=2.6),
+    _ingredient("rohu-fish", "Rohu Fish", "Non-veg", (97, 20.5, 0, 1.5, 0, 60, 1, 60), b12=2.4),
+    _ingredient("salmon", "Salmon", "Non-veg", (208, 20.4, 0, 13.4, 0, 59, 0.5, 9), b12=3.2),
+    _ingredient("prawns", "Prawns / Shrimp", "Non-veg", (99, 24, 0.2, 0.3, 0, 111, 0.5, 70), b12=1.8),
+    _ingredient("egg", "Egg", "Non-veg", (143, 12.6, 0.7, 9.5, 0, 142, 1.8, 56), b12=1.1),
+    _ingredient("crab", "Crab", "Non-veg", (97, 19, 0, 1.5, 0, 107, 0.8, 59), b12=3.3),
+    _ingredient("squid", "Squid", "Non-veg", (92, 15.6, 3.1, 1.4, 0, 44, 0.7, 32), b12=1.3),
 ]
 
 INGREDIENT_BY_ID = {item.id: item for item in INGREDIENTS}
@@ -320,14 +322,14 @@ METHODS: dict[CookingMethod, CookingMethodInfo] = {
 }
 
 RETENTION = {
-    "boiling": {"calories": 1.0, "protein": 0.98, "carbs": 0.97, "fat": 0.99, "fiber": 0.90, "sodium": 0.95, "iron": 0.95, "calcium": 0.90},
-    "frying": {"calories": 1.0, "protein": 0.99, "carbs": 0.98, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.98, "calcium": 0.70},
-    "deep_frying": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.90, "sodium": 0.98, "iron": 0.90, "calcium": 0.45},
-    "sauteing": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.96, "sodium": 0.98, "iron": 0.98, "calcium": 0.80},
-    "roasting": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.99, "calcium": 0.65},
-    "pressure_cooking": {"calories": 1.0, "protein": 0.99, "carbs": 1.0, "fat": 0.99, "fiber": 0.95, "sodium": 0.97, "iron": 0.97, "calcium": 0.75},
-    "steaming": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.98, "sodium": 0.99, "iron": 0.99, "calcium": 0.88},
-    "baking": {"calories": 1.0, "protein": 0.98, "carbs": 0.96, "fat": 1.0, "fiber": 0.94, "sodium": 0.98, "iron": 0.98, "calcium": 0.60},
+    "boiling": {"calories": 1.0, "protein": 0.98, "carbs": 0.97, "fat": 0.99, "fiber": 0.90, "sodium": 0.95, "iron": 0.95, "calcium": 0.90, "b12": 0.90},
+    "frying": {"calories": 1.0, "protein": 0.99, "carbs": 0.98, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.98, "calcium": 0.70, "b12": 0.95},
+    "deep_frying": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.90, "sodium": 0.98, "iron": 0.90, "calcium": 0.45, "b12": 0.90},
+    "sauteing": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.96, "sodium": 0.98, "iron": 0.98, "calcium": 0.80, "b12": 0.95},
+    "roasting": {"calories": 1.0, "protein": 0.98, "carbs": 0.95, "fat": 1.0, "fiber": 0.95, "sodium": 0.98, "iron": 0.99, "calcium": 0.65, "b12": 0.90},
+    "pressure_cooking": {"calories": 1.0, "protein": 0.99, "carbs": 1.0, "fat": 0.99, "fiber": 0.95, "sodium": 0.97, "iron": 0.97, "calcium": 0.75, "b12": 0.88},
+    "steaming": {"calories": 1.0, "protein": 0.99, "carbs": 0.99, "fat": 1.0, "fiber": 0.98, "sodium": 0.99, "iron": 0.99, "calcium": 0.88, "b12": 0.95},
+    "baking": {"calories": 1.0, "protein": 0.98, "carbs": 0.96, "fat": 1.0, "fiber": 0.94, "sodium": 0.98, "iron": 0.98, "calcium": 0.60, "b12": 0.90},
 }
 
 
@@ -389,19 +391,21 @@ async def calculate_nutrition(payload: CalculateRequest) -> CalculateResponse:
     raw_totals = Nutrition(**totals.model_dump())
     method = METHODS[payload.cooking_method]
     retention = RETENTION[payload.cooking_method]
+    oil_absorption_g = method.oil_uptake_g if payload.oil_absorption_g is None else payload.oil_absorption_g
     for field in Nutrition.model_fields:
-        setattr(totals, field, getattr(totals, field) * retention[field])
-    totals.fat += method.oil_uptake_g
-    totals.calories += method.oil_uptake_g * 9
-    cooked_weight = raw_weight * method.yield_factor + method.oil_uptake_g
+        adjusted_retention = min(1.1, retention[field] * payload.nutrient_retention_multiplier)
+        setattr(totals, field, getattr(totals, field) * adjusted_retention)
+    totals.fat += oil_absorption_g
+    totals.calories += oil_absorption_g * 9
+    cooked_weight = raw_weight * method.yield_factor + oil_absorption_g
     per_serving = Nutrition(**{field: getattr(totals, field) / payload.servings for field in Nutrition.model_fields})
-    note = f"{method.label} changes the pot to about {round(cooked_weight)} g and adds {method.oil_uptake_g:g} g absorbed oil. Values are estimates based on ingredient weights and cooking retention."
+    note = f"{method.label} changes the pot to about {round(cooked_weight)} g and adds {oil_absorption_g:g} g absorbed oil. Values are estimates based on ingredient weights and cooking retention."
     return CalculateResponse(
         cooking_method=payload.cooking_method,
         raw_weight_g=round(raw_weight, 1),
         cooked_weight_g=round(cooked_weight, 1),
         servings=payload.servings,
-        oil_uptake_g=method.oil_uptake_g,
+        oil_uptake_g=round(oil_absorption_g, 1),
         raw_totals=_rounded(raw_totals),
         totals=_rounded(totals),
         per_serving=_rounded(per_serving),

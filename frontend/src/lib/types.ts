@@ -19,6 +19,7 @@ export interface Nutrition {
   sodium: number;
   iron: number;
   calcium: number;
+  b12: number;
 }
 
 export interface IngredientCatalogItem {
@@ -65,6 +66,8 @@ export interface CalculateRequest {
   ingredients: CalculateIngredientInput[];
   cooking_method: CookingMethodKey;
   servings: number;
+  oil_absorption_g?: number;
+  nutrient_retention_multiplier?: number;
 }
 
 export interface CalculatedIngredient {
